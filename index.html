@@ -17,20 +17,18 @@
 }
 
 html{
-    width:100%;
-    height:100%;
-    overflow-x:hidden;
+    scroll-behavior:smooth;
 }
 
 body{
-    width:100%;
     min-height:100vh;
+    width:100%;
 
     display:flex;
     justify-content:center;
     align-items:center;
 
-    padding:20px;
+    padding:18px;
 
     overflow-x:hidden;
     overflow-y:auto;
@@ -74,9 +72,11 @@ body::after{
         transform:translateY(0) rotate(0deg);
         opacity:0;
     }
+
     20%{
         opacity:1;
     }
+
     100%{
         transform:translateY(-130vh) rotate(30deg);
         opacity:0;
@@ -89,7 +89,7 @@ body::after{
     width:100%;
     max-width:420px;
 
-    padding:35px 30px;
+    padding:34px 26px;
 
     border-radius:28px;
 
@@ -110,23 +110,22 @@ body::after{
     inset 0 0 20px rgba(255,255,255,0.03);
 
     animation:floatCard 4s ease-in-out infinite;
-
-    margin:auto;
 }
 
 @keyframes floatCard{
     0%,100%{
         transform:translateY(0px);
     }
+
     50%{
         transform:translateY(-8px);
     }
 }
 
 .emoji{
-    font-size:clamp(50px,10vw,70px);
+    font-size:clamp(50px,11vw,70px);
 
-    margin-bottom:15px;
+    margin-bottom:14px;
 
     animation:shake 2.5s infinite;
 }
@@ -135,9 +134,11 @@ body::after{
     0%,100%{
         transform:rotate(0deg);
     }
+
     25%{
         transform:rotate(-8deg);
     }
+
     75%{
         transform:rotate(8deg);
     }
@@ -148,7 +149,7 @@ h1{
 
     margin-bottom:15px;
 
-    font-size:clamp(26px,6vw,34px);
+    font-size:clamp(26px,7vw,34px);
 
     font-weight:600;
 
@@ -161,7 +162,7 @@ h1{
 
     background:#ff5c8a;
 
-    margin:0 auto 20px;
+    margin:0 auto 22px;
 
     border-radius:20px;
 }
@@ -169,13 +170,11 @@ h1{
 p{
     color:#f1f1f1;
 
-    font-size:clamp(14px,3.7vw,16px);
+    font-size:clamp(14px,3.8vw,16px);
 
     line-height:1.9;
 
     font-weight:300;
-
-    word-wrap:break-word;
 }
 
 .highlight{
@@ -183,10 +182,12 @@ p{
     font-weight:500;
 }
 
-.btn{
-    margin-top:28px;
+/* Button */
 
+button{
     width:100%;
+
+    margin-top:28px;
 
     padding:14px;
 
@@ -199,8 +200,7 @@ p{
 
     color:white;
 
-    font-size:clamp(14px,3.5vw,15px);
-
+    font-size:14px;
     font-weight:500;
 
     cursor:pointer;
@@ -210,11 +210,13 @@ p{
     box-shadow:0 8px 25px rgba(255,77,109,0.35);
 }
 
-.btn:hover{
-    transform:translateY(-3px) scale(1.03);
+button:hover{
+    transform:translateY(-3px);
 
     box-shadow:0 12px 30px rgba(255,77,109,0.5);
 }
+
+/* Fade Animation */
 
 .fade{
     animation:fadeText 0.5s ease;
@@ -225,35 +227,24 @@ p{
         opacity:0;
         transform:translateY(10px);
     }
+
     to{
         opacity:1;
         transform:translateY(0);
     }
 }
 
-/* Tablet */
+/* Mobile Friendly */
 
-@media(max-width:768px){
+@media(max-width:600px){
 
     body{
-        padding:18px;
         align-items:flex-start;
+        padding:14px;
     }
 
     .card{
-        margin-top:30px;
-    }
-}
-
-/* Mobile */
-
-@media(max-width:480px){
-
-    body{
-        padding:15px;
-    }
-
-    .card{
+        margin-top:20px;
         padding:28px 20px;
         border-radius:24px;
     }
@@ -263,9 +254,7 @@ p{
     }
 }
 
-/* Small Mobile */
-
-@media(max-width:340px){
+@media(max-width:350px){
 
     .card{
         padding:24px 16px;
@@ -303,7 +292,7 @@ p{
         then trust me, I regret it deeply. 💔
     </p>
 
-    <button class="btn" onclick="changeText()">
+    <button id="mainBtn" onclick="changeText()">
         One More Thing ❤️
     </button>
 
@@ -311,9 +300,12 @@ p{
 
 <script>
 
+let changed = false;
+
 function changeText(){
 
     const text = document.getElementById("message");
+    const button = document.getElementById("mainBtn");
 
     text.classList.remove("fade");
 
@@ -321,20 +313,35 @@ function changeText(){
 
     text.classList.add("fade");
 
-    text.innerHTML = `
-    I don't want to win arguments against you...  
-    I just don't want to lose <span class="highlight">you.</span> 🥺
-    <br><br>
+    if(!changed){
 
-    Sometimes people hurt the ones they care about the most,
-    not because they love less —
-    but because they feel too much.
-    <br><br>
+        text.innerHTML = `
+        I don't want to win arguments against you...  
+        I just don't want to lose <span class="highlight">you.</span> 🥺
+        <br><br>
 
-    Still... that's not an excuse.
-    And if I made you cry, overthink, or feel unloved,
-    then I truly am sorry from my heart. ❤️
-    `;
+        Sometimes people hurt the ones they care about the most,
+        not because they love less —
+        but because they feel too much.
+        <br><br>
+
+        Still... that's not an excuse.
+        And if I made you cry, overthink, or feel unloved,
+        then I truly am sorry from my heart. ❤️
+        `;
+
+        button.innerHTML = "Okay ❤️";
+
+        changed = true;
+
+    }else{
+
+        button.innerHTML = "Take Care ❤️";
+
+        button.style.background =
+        "linear-gradient(135deg,#8e2de2,#c471ed)";
+
+    }
 }
 
 </script>
