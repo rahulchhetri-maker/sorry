@@ -9,6 +9,46 @@
 
 <style>
 
+:root{
+
+    --bg1:#2d132c;
+    --bg2:#120b18;
+    --bg3:#09090f;
+
+    --card:rgba(255,255,255,0.08);
+    --border:rgba(255,255,255,0.12);
+
+    --text:#f1f1f1;
+    --title:#ffd1dc;
+    --highlight:#ff9db5;
+
+    --button1:#ff4d6d;
+    --button2:#ff758f;
+
+    --line:#ff5c8a;
+}
+
+/* Light Theme */
+
+body.light{
+
+    --bg1:#ffdce6;
+    --bg2:#ffeef3;
+    --bg3:#fff8fb;
+
+    --card:rgba(255,255,255,0.75);
+    --border:rgba(255,255,255,0.5);
+
+    --text:#3b2230;
+    --title:#d6336c;
+    --highlight:#ff4d88;
+
+    --button1:#ff5f8f;
+    --button2:#ff85a7;
+
+    --line:#ff4d88;
+}
+
 *{
     margin:0;
     padding:0;
@@ -34,53 +74,130 @@ body{
     overflow-y:auto;
 
     background:
-    radial-gradient(circle at top,#2d132c 0%,#120b18 45%,#09090f 100%);
+    radial-gradient(circle at top,var(--bg1) 0%,var(--bg2) 45%,var(--bg3) 100%);
+
+    transition:0.4s ease;
 
     position:relative;
 }
 
 /* Floating Hearts */
 
-body::before,
-body::after{
-    content:"❤";
+.hearts{
     position:fixed;
+    inset:0;
 
-    color:rgba(255,255,255,0.07);
-
-    font-size:clamp(70px,10vw,130px);
-
-    animation:floatHeart 10s linear infinite;
+    overflow:hidden;
 
     pointer-events:none;
+
     z-index:0;
 }
 
-body::before{
+.hearts span{
+    position:absolute;
+
+    bottom:-100px;
+
+    color:rgba(255,255,255,0.10);
+
+    font-size:clamp(18px,5vw,35px);
+
+    animation:floatUp linear infinite;
+}
+
+/* Hearts for all screens */
+
+.hearts span:nth-child(1){
     left:5%;
-    bottom:-120px;
+    animation-duration:8s;
 }
 
-body::after{
-    right:5%;
-    bottom:-150px;
-    animation-delay:5s;
+.hearts span:nth-child(2){
+    left:20%;
+    animation-duration:10s;
+    animation-delay:2s;
 }
 
-@keyframes floatHeart{
+.hearts span:nth-child(3){
+    left:40%;
+    animation-duration:7s;
+    animation-delay:1s;
+}
+
+.hearts span:nth-child(4){
+    left:60%;
+    animation-duration:11s;
+    animation-delay:3s;
+}
+
+.hearts span:nth-child(5){
+    left:80%;
+    animation-duration:9s;
+    animation-delay:1s;
+}
+
+.hearts span:nth-child(6){
+    left:90%;
+    animation-duration:12s;
+    animation-delay:4s;
+}
+
+@keyframes floatUp{
+
     0%{
         transform:translateY(0) rotate(0deg);
         opacity:0;
     }
 
-    20%{
+    15%{
         opacity:1;
     }
 
     100%{
-        transform:translateY(-130vh) rotate(30deg);
+        transform:translateY(-120vh) rotate(30deg);
         opacity:0;
     }
+}
+
+/* Theme Toggle */
+
+.theme-toggle{
+    position:fixed;
+
+    top:15px;
+    right:15px;
+
+    width:52px;
+    height:52px;
+
+    border:none;
+    border-radius:50%;
+
+    background:rgba(255,255,255,0.12);
+
+    backdrop-filter:blur(10px);
+
+    color:white;
+
+    font-size:20px;
+
+    cursor:pointer;
+
+    z-index:100;
+
+    transition:0.3s ease;
+}
+
+.theme-toggle:hover{
+    transform:scale(1.08);
+}
+
+/* Dark icon in light mode */
+
+body.light .theme-toggle{
+    color:#333;
+    background:rgba(255,255,255,0.75);
 }
 
 /* Card */
@@ -98,21 +215,24 @@ body::after{
     position:relative;
     z-index:1;
 
-    background:rgba(255,255,255,0.08);
+    background:var(--card);
 
-    border:1px solid rgba(255,255,255,0.12);
+    border:1px solid var(--border);
 
     backdrop-filter:blur(18px);
     -webkit-backdrop-filter:blur(18px);
 
     box-shadow:
-    0 10px 40px rgba(0,0,0,0.45),
+    0 10px 40px rgba(0,0,0,0.25),
     inset 0 0 20px rgba(255,255,255,0.03);
 
     animation:floatCard 4s ease-in-out infinite;
+
+    transition:0.4s ease;
 }
 
 @keyframes floatCard{
+
     0%,100%{
         transform:translateY(0px);
     }
@@ -131,6 +251,7 @@ body::after{
 }
 
 @keyframes shake{
+
     0%,100%{
         transform:rotate(0deg);
     }
@@ -145,7 +266,7 @@ body::after{
 }
 
 h1{
-    color:#ffd1dc;
+    color:var(--title);
 
     margin-bottom:15px;
 
@@ -160,7 +281,7 @@ h1{
     width:70px;
     height:3px;
 
-    background:#ff5c8a;
+    background:var(--line);
 
     margin:0 auto 22px;
 
@@ -168,23 +289,25 @@ h1{
 }
 
 p{
-    color:#f1f1f1;
+    color:var(--text);
 
     font-size:clamp(14px,3.8vw,16px);
 
     line-height:1.9;
 
     font-weight:300;
+
+    transition:0.4s ease;
 }
 
 .highlight{
-    color:#ff9db5;
+    color:var(--highlight);
     font-weight:500;
 }
 
-/* Button */
+/* Main Button */
 
-button{
+button.main-btn{
     width:100%;
 
     margin-top:28px;
@@ -196,7 +319,8 @@ button{
 
     border-radius:40px;
 
-    background:linear-gradient(135deg,#ff4d6d,#ff758f);
+    background:
+    linear-gradient(135deg,var(--button1),var(--button2));
 
     color:white;
 
@@ -210,19 +334,21 @@ button{
     box-shadow:0 8px 25px rgba(255,77,109,0.35);
 }
 
-button:hover{
+button.main-btn:hover{
+
     transform:translateY(-3px);
 
     box-shadow:0 12px 30px rgba(255,77,109,0.5);
 }
 
-/* Fade Animation */
+/* Fade */
 
 .fade{
     animation:fadeText 0.5s ease;
 }
 
 @keyframes fadeText{
+
     from{
         opacity:0;
         transform:translateY(10px);
@@ -234,7 +360,7 @@ button:hover{
     }
 }
 
-/* Mobile Friendly */
+/* Mobile */
 
 @media(max-width:600px){
 
@@ -244,13 +370,19 @@ button:hover{
     }
 
     .card{
-        margin-top:20px;
+        margin-top:70px;
         padding:28px 20px;
         border-radius:24px;
     }
 
     p{
         line-height:1.8;
+    }
+
+    .theme-toggle{
+        width:48px;
+        height:48px;
+        font-size:18px;
     }
 }
 
@@ -269,6 +401,25 @@ button:hover{
 </head>
 
 <body>
+
+<!-- Floating Hearts -->
+
+<div class="hearts">
+    <span>❤</span>
+    <span>❤</span>
+    <span>❤</span>
+    <span>❤</span>
+    <span>❤</span>
+    <span>❤</span>
+</div>
+
+<!-- Theme Toggle -->
+
+<button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">
+    🌙
+</button>
+
+<!-- Card -->
 
 <div class="card">
 
@@ -292,7 +443,7 @@ button:hover{
         then trust me, I regret it deeply. 💔
     </p>
 
-    <button id="mainBtn" onclick="changeText()">
+    <button class="main-btn" id="mainBtn" onclick="changeText()">
         One More Thing ❤️
     </button>
 
@@ -340,7 +491,24 @@ function changeText(){
 
         button.style.background =
         "linear-gradient(135deg,#8e2de2,#c471ed)";
+    }
+}
 
+/* Theme Toggle */
+
+function toggleTheme(){
+
+    document.body.classList.toggle("light");
+
+    const themeBtn = document.getElementById("themeBtn");
+
+    if(document.body.classList.contains("light")){
+
+        themeBtn.innerHTML = "☀";
+
+    }else{
+
+        themeBtn.innerHTML = "🌙";
     }
 }
 
