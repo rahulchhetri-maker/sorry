@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>I'm Sorry</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+html{
+    width:100%;
+    height:100%;
+    overflow-x:hidden;
+}
+
+body{
+    width:100%;
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:20px;
+
+    overflow-x:hidden;
+    overflow-y:auto;
+
+    background:
+    radial-gradient(circle at top,#2d132c 0%,#120b18 45%,#09090f 100%);
+
+    position:relative;
+}
+
+/* Floating Hearts */
+
+body::before,
+body::after{
+    content:"❤";
+    position:fixed;
+
+    color:rgba(255,255,255,0.07);
+
+    font-size:clamp(70px,10vw,130px);
+
+    animation:floatHeart 10s linear infinite;
+
+    pointer-events:none;
+    z-index:0;
+}
+
+body::before{
+    left:5%;
+    bottom:-120px;
+}
+
+body::after{
+    right:5%;
+    bottom:-150px;
+    animation-delay:5s;
+}
+
+@keyframes floatHeart{
+    0%{
+        transform:translateY(0) rotate(0deg);
+        opacity:0;
+    }
+    20%{
+        opacity:1;
+    }
+    100%{
+        transform:translateY(-130vh) rotate(30deg);
+        opacity:0;
+    }
+}
+
+/* Card */
+
+.card{
+    width:100%;
+    max-width:420px;
+
+    padding:35px 30px;
+
+    border-radius:28px;
+
+    text-align:center;
+
+    position:relative;
+    z-index:1;
+
+    background:rgba(255,255,255,0.08);
+
+    border:1px solid rgba(255,255,255,0.12);
+
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+
+    box-shadow:
+    0 10px 40px rgba(0,0,0,0.45),
+    inset 0 0 20px rgba(255,255,255,0.03);
+
+    animation:floatCard 4s ease-in-out infinite;
+
+    margin:auto;
+}
+
+@keyframes floatCard{
+    0%,100%{
+        transform:translateY(0px);
+    }
+    50%{
+        transform:translateY(-8px);
+    }
+}
+
+.emoji{
+    font-size:clamp(50px,10vw,70px);
+
+    margin-bottom:15px;
+
+    animation:shake 2.5s infinite;
+}
+
+@keyframes shake{
+    0%,100%{
+        transform:rotate(0deg);
+    }
+    25%{
+        transform:rotate(-8deg);
+    }
+    75%{
+        transform:rotate(8deg);
+    }
+}
+
+h1{
+    color:#ffd1dc;
+
+    margin-bottom:15px;
+
+    font-size:clamp(26px,6vw,34px);
+
+    font-weight:600;
+
+    letter-spacing:1px;
+}
+
+.line{
+    width:70px;
+    height:3px;
+
+    background:#ff5c8a;
+
+    margin:0 auto 20px;
+
+    border-radius:20px;
+}
+
+p{
+    color:#f1f1f1;
+
+    font-size:clamp(14px,3.7vw,16px);
+
+    line-height:1.9;
+
+    font-weight:300;
+
+    word-wrap:break-word;
+}
+
+.highlight{
+    color:#ff9db5;
+    font-weight:500;
+}
+
+.btn{
+    margin-top:28px;
+
+    width:100%;
+
+    padding:14px;
+
+    border:none;
+    outline:none;
+
+    border-radius:40px;
+
+    background:linear-gradient(135deg,#ff4d6d,#ff758f);
+
+    color:white;
+
+    font-size:clamp(14px,3.5vw,15px);
+
+    font-weight:500;
+
+    cursor:pointer;
+
+    transition:0.35s ease;
+
+    box-shadow:0 8px 25px rgba(255,77,109,0.35);
+}
+
+.btn:hover{
+    transform:translateY(-3px) scale(1.03);
+
+    box-shadow:0 12px 30px rgba(255,77,109,0.5);
+}
+
+.fade{
+    animation:fadeText 0.5s ease;
+}
+
+@keyframes fadeText{
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* Tablet */
+
+@media(max-width:768px){
+
+    body{
+        padding:18px;
+        align-items:flex-start;
+    }
+
+    .card{
+        margin-top:30px;
+    }
+}
+
+/* Mobile */
+
+@media(max-width:480px){
+
+    body{
+        padding:15px;
+    }
+
+    .card{
+        padding:28px 20px;
+        border-radius:24px;
+    }
+
+    p{
+        line-height:1.8;
+    }
+}
+
+/* Small Mobile */
+
+@media(max-width:340px){
+
+    .card{
+        padding:24px 16px;
+    }
+
+    .line{
+        width:55px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <div class="emoji">🥺</div>
+
+    <h1>I'm Really Sorry</h1>
+
+    <div class="line"></div>
+
+    <p id="message">
+        I know sometimes my emotions become too loud...  
+        my jealousy, my overthinking, my care — all mixed together.  
+        But the truth is... <span class="highlight">you matter to me more than my ego ever will.</span>
+        <br><br>
+
+        I never wanted to make you feel hurt, uncomfortable, or distant from me.  
+        Maybe I reacted emotionally because losing your warmth scares me more than I admit.
+        <br><br>
+
+        If my words made your heart heavy even for a moment...  
+        then trust me, I regret it deeply. 💔
+    </p>
+
+    <button class="btn" onclick="changeText()">
+        One More Thing ❤️
+    </button>
+
+</div>
+
+<script>
+
+function changeText(){
+
+    const text = document.getElementById("message");
+
+    text.classList.remove("fade");
+
+    void text.offsetWidth;
+
+    text.classList.add("fade");
+
+    text.innerHTML = `
+    I don't want to win arguments against you...  
+    I just don't want to lose <span class="highlight">you.</span> 🥺
+    <br><br>
+
+    Sometimes people hurt the ones they care about the most,
+    not because they love less —
+    but because they feel too much.
+    <br><br>
+
+    Still... that's not an excuse.
+    And if I made you cry, overthink, or feel unloved,
+    then I truly am sorry from my heart. ❤️
+    `;
+}
+
+</script>
+
+</body>
+</html>
